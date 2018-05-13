@@ -1,6 +1,8 @@
 # ReduxSimpleStarter
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+Integrating simple weather search App through OpenWeather API calls and showing graphs through recharts.
+
+![Sample deployment image](./weather_react_applet.png)
 
 ### Getting Started
 
