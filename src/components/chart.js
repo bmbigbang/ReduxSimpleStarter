@@ -15,7 +15,7 @@ export default (props) => {
                 <XAxis />
                 <YAxis domain={[Math.min( ...props.listData ), Math.max( ...props.listData )]}/>
             </LineChart>
-            <div>Average: { _.round(ave_val) } { props.units }</div>
+            <div>Average: { _.round(ave_val, 2) } { props.units }</div>
         </div>
     );
 }

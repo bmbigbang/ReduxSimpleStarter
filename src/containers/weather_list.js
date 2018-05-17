@@ -14,12 +14,12 @@ class WeatherList extends Component {
         for (let idx in cityData.list) {
             pressures = [...pressures, {'data': cityData.list[idx].main.pressure}];
             humidities = [...humidities, {'data': cityData.list[idx].main.humidity}];
-            temps = [...temps, {'data': _.round(parseFloat(cityData.list[idx].main.temp) - 273.0)}];
+            temps = [...temps, {'data': _.round(parseFloat(cityData.list[idx].main.temp) - 273.0, 2)}];
         }
 
         const pressures2 = cityData.list.map(weather => weather.main.pressure);
         const humidities2 = cityData.list.map(weather => weather.main.humidity);
-        const temps2 = cityData.list.map(weather => _.round(parseFloat(weather.main.temp) - 273.0));
+        const temps2 = cityData.list.map(weather => _.round(parseFloat(weather.main.temp) - 273.0, 2));
         console.log(temps);
 
 
