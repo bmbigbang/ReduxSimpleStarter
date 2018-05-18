@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Chart from '../components/chart'
+import MapContainer from './google_map';
 
 
 class WeatherList extends Component {
@@ -20,12 +21,12 @@ class WeatherList extends Component {
         const pressures2 = cityData.list.map(weather => weather.main.pressure);
         const humidities2 = cityData.list.map(weather => weather.main.humidity);
         const temps2 = cityData.list.map(weather => _.round(parseFloat(weather.main.temp) - 273.0, 2));
-        console.log(temps);
+        const { lon, lat } = cityData.city.coord;
 
 
         return (
         <tr key={name}>
-            <td>{name} ({cityData.city.country})</td>
+            <td><MapContainer cityname={name} lat={lat} lon={lon} /></td>
             <td>
                 <Chart weatherData={temps} listData={temps2} color='#dfe200' units='Celcius'/>
             </td>
