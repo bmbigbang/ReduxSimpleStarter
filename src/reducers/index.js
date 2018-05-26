@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import WeatherReducer from './reducer_weather'
+import PostsReducer from './reducer_posts'
+import UsersReducer from "./reducer_users";
 
 const rootReducer = combineReducers({
-  weather: WeatherReducer
+  users: UsersReducer,
+  posts: PostsReducer
 });
 
 export default rootReducer;

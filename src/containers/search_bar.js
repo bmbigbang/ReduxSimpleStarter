@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWeather } from "../actions/index";
+import { fetchUsers, fetchPosts } from "../actions/index";
+
 
 class SearchBar extends Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class SearchBar extends Component {
 
         this.state = {term: ''};
 
-        this.onInputChange = this.onInputChange.bind(this)
+        this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this)
     }
 
@@ -21,7 +22,8 @@ class SearchBar extends Component {
         event.preventDefault();
 
         // call the action creator to make API call
-        this.props.fetchWeather(this.state.term);
+        this.props.fetchUsers(this.state.term.toLowerCase());
+
         this.setState({term: ''});
     }
 
@@ -29,7 +31,7 @@ class SearchBar extends Component {
         return (
             <form onSubmit={this.onFormSubmit} className="input-group">
                 <input
-                    placeholder="Get a five-day forecast in your favorite cities"
+                    placeholder="Search username to get posts"
                     className="form-control"
                     value={this.state.term}
                     onChange={this.onInputChange}/>
@@ -42,16 +44,7 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchWeather }, dispatch)
+    return bindActionCreators({ fetchUsers, fetchPosts }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(SearchBar)
-
-
-
-
-
-
-
-
-
