@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 class WordChart extends Component {
     render() {
-        return <div>This is a word chart</div>
+        return <div className='word-chart-container'> </div>
     }
 }
 

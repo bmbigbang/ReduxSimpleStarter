@@ -20,7 +20,7 @@ td.posts-header > div {
 }
 
 td.posts-header {
-    height: 50px;
+    height: 40px;
 }
 
 #posts-title {
@@ -40,4 +40,25 @@ td.posts-header {
     margin-right: 0;
     margin-left: auto;
     width: 49%;
+}
+
+.word-table-container > div {
+    float: top;
+    margin-right: 0;
+    margin-left: auto;
+    height: 250px;
+}
+
+#word-table {
+    width: 70%;
+    margin: 10px auto;
+}
+
+td.word-table-header {
+    height: 25px;
+}
+
+td.word-table-rows {
+    height: 12px;
+    margin: 5px auto;
 }

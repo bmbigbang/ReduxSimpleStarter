@@ -18,7 +18,7 @@ class PostsList extends Component {
     renderPosts(post) {
         if ((this.props.users === 0) || (this.props.users === post.userId)) {
             return (
-                <tr onClick={() => {this.props.selectPost(post.body)}} key={post.id}>
+                <tr onClick={() => {this.props.selectPost(post.id)}} key={post.id}>
                     <td className="small">
                         <span id="posts-title">{post.title}</span><br/>
                         {post.body}
@@ -26,7 +26,6 @@ class PostsList extends Component {
                 </tr>
             )
         } else {return null}
-
     }
 
     render() {

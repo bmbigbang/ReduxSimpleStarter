@@ -50,24 +50,12 @@ export function fetchPosts(userId) {
 }
 
 export function selectPost(post) {
-    let words = post.replace(/[^\w^\s]/g, '').toLowerCase().split(" ");
-    let counts = words.reduce((tmpMap, word) => {
-        tmpMap[word] = tmpMap[word] + 1 || 1;
-        return tmpMap;
-    }, {});
-
-    let sortable = [];
-    for (let char in counts) {
-        sortable.push([char, counts[char]]);
-    }
-
-    sortable.sort(function(a, b) {
-        return b[1] - a[1];
-    });
+    let url = `${ROOT_URL}posts/${post}/comments`;
+    let request = axios.get(url);
 
     return {
         type: POST_SELECTED,
-        payload: sortable
+        payload: request
     };
 }
 

@@ -1,31 +1,49 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux"
-import {fetchPosts, selectPost} from "../actions"
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
 
 class WordTable extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {'init': true};
+
+        this.renderTable = this.renderTable.bind(this);
     }
 
-    renderRows(post) {
+    shouldComponentUpdate() {
+        return this.props.post || '';
+    }
+
+    renderRows(row) {
         return (
-            <li>
-                {post[0]} - {post[1]}
-            </li>
-        )
+            <tr>
+                <td className='word-table-rows'>{ row.word }</td>
+                <td className='word-table-rows'>{ row.count }</td>
+            </tr>
+        );
+    }
+
+    renderTable() {
+        return this.props.post.map(this.renderRows)
     }
 
     render() {
-        if (!this.props.post) {
-            return <div>Select a post...</div>
-        }
-
         return (
-            <div><ul>
-                {this.props.post.map(this.renderRows)}
-        </ul></div>
+            <div className='word-table-container'>
+                <table id='word-table'
+                       className="table-bordered table-condensed table-hover table-striped">
+                    <thead className="thead-dark">
+                    <tr>
+                        <td key='word' className='word-table-header'>Word</td>
+                        <td key='frequency' className='word-table-header'>Frequency</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderTable()}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 }
