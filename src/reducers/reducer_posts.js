@@ -25,7 +25,8 @@ export function PostReducer(state=[], action) {
 
             let sortable = [];
             for (let char in counts) {
-                sortable.push([char, Number((counts[char] / words.length).toFixed(1))]);
+                sortable.push([char,
+                    Number((counts[char] * 100 / words.length).toFixed(1))]);
             }
 
             sortable.sort(function(a, b) {
@@ -33,8 +34,10 @@ export function PostReducer(state=[], action) {
             });
 
             let data = [];
+            let count = 1;
             for (let item of sortable) {
-                data.push({'word': item[0], 'count': item[1]});
+                data.push({'id': count, 'word': item[0], 'count': item[1]});
+                count += 1;
             }
 
             data = data.slice(0, 10);

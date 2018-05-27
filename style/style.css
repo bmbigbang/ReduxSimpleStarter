@@ -4,7 +4,7 @@ td, th {
 }
 
 .input-group {
-    margin: 10px 250px;
+    margin: 8px 250px;
 }
 
 td:first-of-type, td:first-of-type > div {
@@ -51,14 +51,25 @@ td.posts-header {
 
 #word-table {
     width: 70%;
-    margin: 10px auto;
+    margin: 4px auto;
 }
 
 td.word-table-header {
-    height: 25px;
+    height: 20px;
 }
 
 td.word-table-rows {
     height: 12px;
-    margin: 5px auto;
+    margin: 4px auto;
+}
+
+.word-chart-container > div {
+    float: bottom;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+#word-chart {
+    width: 70%;
+    margin: 4px auto;
 }

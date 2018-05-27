@@ -17,7 +17,7 @@ class WordTable extends Component {
 
     renderRows(row) {
         return (
-            <tr>
+            <tr key={ row.id }>
                 <td className='word-table-rows'>{ row.word }</td>
                 <td className='word-table-rows'>{ row.count }</td>
             </tr>
@@ -32,8 +32,9 @@ class WordTable extends Component {
         return (
             <div className='word-table-container'>
                 <table id='word-table'
-                       className="table-bordered table-condensed table-hover table-striped">
-                    <thead className="thead-dark">
+                       className="table-bordered table-condensed
+                       table-hover table-striped thead-dark">
+                    <thead>
                     <tr>
                         <td key='word' className='word-table-header'>Word</td>
                         <td key='frequency' className='word-table-header'>Frequency</td>
