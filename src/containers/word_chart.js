@@ -33,8 +33,7 @@ class WordChart extends Component {
         let data = [];
         let count = 1;
         for (let item of sortable) {
-            data.push({'id': count, 'word': item[0],
-                'count': Number((item[1] * 100 / total).toFixed(1))});
+            data.push({'id': count, 'word': item[0], 'count': item[1]});
             count += 1;
         }
 

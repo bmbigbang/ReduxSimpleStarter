@@ -48,7 +48,8 @@ class WordTable extends Component {
         let data = [];
         let count = 1;
         for (let item of sortable) {
-            data.push({'id': count, 'word': item[0], 'count': item[1]});
+            data.push({'id': count, 'word': item[0],
+                       'count': Number((item[1] * 100 / total).toFixed(1))});
             count += 1;
         }
 
@@ -64,8 +65,8 @@ class WordTable extends Component {
                        table-hover table-striped thead-dark">
                     <thead>
                     <tr>
-                        <td key='word' className='word-table-header'>Word</td>
-                        <td key='frequency' className='word-table-header'>Frequency</td>
+                        <td id='word' className='word-table-header'>Word</td>
+                        <td id='frequency' className='word-table-header'>Frequency (%)</td>
                     </tr>
                     </thead>
                     <tbody>

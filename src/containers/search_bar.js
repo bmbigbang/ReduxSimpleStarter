@@ -31,7 +31,7 @@ class SearchBar extends Component {
         if (this.props.comments !== prevProps.comments) {
             this.props.userComments(prevProps.comments, this.props.comments);
 
-            setTimeout(() => {}, 500);
+            setTimeout(() => {}, 200);
             this.props.updateComments({'table': true, 'chart': true});
         }
     }
