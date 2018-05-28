@@ -1,4 +1,4 @@
-import {FETCH_POSTS, POST_SELECTED} from "../actions/index";
+import {FETCH_POSTS, POST_SELECTED, USER_COMMENTS} from "../actions/index";
 
 export function PostsReducer(state=[], action) {
     switch (action.type) {
@@ -9,7 +9,7 @@ export function PostsReducer(state=[], action) {
     }
 }
 
-export function PostReducer(state=[], action) {
+export function PostReducer(state={}, action) {
     switch (action.type) {
         case POST_SELECTED:
             let posts = '';
@@ -17,31 +17,18 @@ export function PostReducer(state=[], action) {
                 posts = `${posts} ${comment.body}`;
             }, '');
 
-            let words = posts.replace(/[^\w^\s]/g, '').toLowerCase().split(" ");
-            let counts = words.reduce((tmpMap, word) => {
+            let words = posts.replace(/[^\w^\s]/g, '').replace(/\n/g, ' ')
+                .replace(/\s\s+/g, ' ').toLowerCase().split(" ");
+
+            return words.reduce((tmpMap, word) => {
                 tmpMap[word] = tmpMap[word] + 1 || 1;
                 return tmpMap;
             }, {});
-
-            let sortable = [];
-            for (let char in counts) {
-                sortable.push([char,
-                    Number((counts[char] * 100 / words.length).toFixed(1))]);
-            }
-
-            sortable.sort(function(a, b) {
-                return b[1] - a[1];
-            });
-
-            let data = [];
-            let count = 1;
-            for (let item of sortable) {
-                data.push({'id': count, 'word': item[0], 'count': item[1]});
-                count += 1;
-            }
-
-            data = data.slice(0, 10);
-            return data;
+        case USER_COMMENTS:
+            return action.payload.reduce((tmpMap, word) => {
+                tmpMap[word] = tmpMap[word] + 1 || 1;
+                return tmpMap;
+            }, state);
         default:
             return state;
     }

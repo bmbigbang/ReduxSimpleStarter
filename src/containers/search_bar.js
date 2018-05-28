@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchUsers, fetchPosts } from "../actions/index";
+import { fetchUsers, clearComments, postComments, userComments } from "../actions/index";
 
 
 class SearchBar extends Component {
@@ -27,6 +27,13 @@ class SearchBar extends Component {
         this.setState({term: ''});
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.comments !== prevProps.comments) {
+            this.props.userComments(prevProps.comments, this.props.comments);
+        }
+    }
+
+
     render() {
         return (
             <form onSubmit={this.onFormSubmit} className="input-group">
@@ -43,8 +50,13 @@ class SearchBar extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchUsers, fetchPosts }, dispatch)
+function mapStateToProps({ users, posts, post, comments }) {
+    return { users, posts, post, comments };
 }
 
-export default connect(null, mapDispatchToProps)(SearchBar)
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        fetchUsers, clearComments, postComments, userComments }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)

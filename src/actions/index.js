@@ -5,6 +5,9 @@ const ROOT_URL = 'https://jsonplaceholder.typicode.com/';
 export const FETCH_USERS = 'fetch_users';
 export const FETCH_POSTS = 'fetch_posts';
 export const POST_SELECTED = 'post_selected';
+export const USER_COMMENTS = 'user_comments';
+export const POST_COMMENTS = 'post_comments';
+export const CLEAR_COMMENTS = 'clear_comments';
 
 export function fetchUsers(fullName) {
     if (fullName === '') {
@@ -56,6 +59,32 @@ export function selectPost(post) {
     return {
         type: POST_SELECTED,
         payload: request
+    };
+}
+
+export function userComments(prevWords, words) {
+    let newWords = words.slice(prevWords.length);
+
+    return {
+        type: USER_COMMENTS,
+        payload: newWords
+    };
+}
+
+export function postComments(post) {
+    let url = `${ROOT_URL}posts/${post}/comments`;
+    let request = axios.get(url);
+
+    return {
+        type: POST_COMMENTS,
+        payload: request
+    };
+}
+
+export function clearComments() {
+    return {
+        type: CLEAR_COMMENTS,
+        payload: ''
     };
 }
 

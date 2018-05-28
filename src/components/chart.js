@@ -3,8 +3,6 @@ import {BarChart, Bar, CartesianGrid, XAxis, YAxis} from 'recharts';
 
 
 export default (props) => {
-    console.log(props.countData);
-    console.log(props.listData);
     return (
         <div id='word-chart'>
             <BarChart width={380} height={280}

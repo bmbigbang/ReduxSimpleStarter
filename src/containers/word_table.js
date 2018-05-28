@@ -12,7 +12,7 @@ class WordTable extends Component {
     }
 
     shouldComponentUpdate() {
-        return this.props.post || '';
+        return false
     }
 
     renderRows(row) {
@@ -25,7 +25,28 @@ class WordTable extends Component {
     }
 
     renderTable() {
-        return this.props.post.map(this.renderRows)
+        let sortable = [];
+        let total = 0;
+        for (let word in this.props.post) {
+            sortable.push([word, this.props.post[word]]);
+            total += this.props.post[word];
+        }
+
+        if (total === 0) {return null}
+
+        sortable.sort(function(a, b) {
+            return b[1] - a[1]
+        });
+
+        let data = [];
+        let count = 1;
+        for (let item of sortable) {
+            data.push({'id': count, 'word': item[0], 'count': item[1]});
+            count += 1;
+        }
+
+        data = data.slice(0, 10);
+        return data.map(this.renderRows)
     }
 
     render() {
@@ -49,8 +70,8 @@ class WordTable extends Component {
     }
 }
 
-function mapStateToProps({ post }) {
-    return { post };
+function mapStateToProps({ post, comments }) {
+    return { post, comments };
 }
 
 export default connect(mapStateToProps)(WordTable);

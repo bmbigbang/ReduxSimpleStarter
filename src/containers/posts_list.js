@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { fetchPosts, selectPost } from "../actions";
+import { fetchPosts, selectPost, clearComments, postComments } from "../actions";
 import { bindActionCreators } from 'redux';
 
 
@@ -13,6 +13,17 @@ class PostsList extends Component {
 
     componentDidMount() {
         this.props.fetchPosts(this.props.users || 0);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.users !== prevProps.users) {
+            this.props.clearComments();
+            for (let post in this.props.posts) {
+                if (this.props.users === this.props.posts[post].userId) {
+                    this.props.postComments(post);
+                }
+            }
+        }
     }
 
     renderPosts(post) {
@@ -49,7 +60,7 @@ function mapStateToProps({ users, posts, post }) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchPosts, selectPost }, dispatch)
+    return bindActionCreators({ fetchPosts, selectPost, clearComments, postComments }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsList);
