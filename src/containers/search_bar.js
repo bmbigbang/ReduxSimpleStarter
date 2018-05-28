@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchUsers, clearComments, postComments, userComments } from "../actions/index";
+import { fetchUsers, userComments, updateComments } from "../actions/index";
 
 
 class SearchBar extends Component {
@@ -30,6 +30,9 @@ class SearchBar extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.comments !== prevProps.comments) {
             this.props.userComments(prevProps.comments, this.props.comments);
+
+            setTimeout(() => {}, 500);
+            this.props.updateComments({'table': true, 'chart': true});
         }
     }
 
@@ -38,7 +41,7 @@ class SearchBar extends Component {
         return (
             <form onSubmit={this.onFormSubmit} className="input-group">
                 <input
-                    placeholder="Search username to get posts"
+                    placeholder="Search a name to get posts"
                     className="form-control"
                     value={this.state.term}
                     onChange={this.onInputChange}/>
@@ -50,13 +53,13 @@ class SearchBar extends Component {
     }
 }
 
-function mapStateToProps({ users, posts, post, comments }) {
-    return { users, posts, post, comments };
+function mapStateToProps({ comments }) {
+    return { comments };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        fetchUsers, clearComments, postComments, userComments }, dispatch)
+        fetchUsers, userComments, updateComments }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)

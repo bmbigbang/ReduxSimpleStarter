@@ -8,6 +8,7 @@ export const POST_SELECTED = 'post_selected';
 export const USER_COMMENTS = 'user_comments';
 export const POST_COMMENTS = 'post_comments';
 export const CLEAR_COMMENTS = 'clear_comments';
+export const UPDATE_COMMENTS = 'update_comments';
 
 export function fetchUsers(fullName) {
     if (fullName === '') {
@@ -87,4 +88,12 @@ export function clearComments() {
         payload: ''
     };
 }
+
+export function updateComments(boolArr) {
+    return {
+        type: UPDATE_COMMENTS,
+        payload: boolArr
+    }
+}
+
 

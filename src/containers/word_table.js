@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {updateComments} from "../actions"
+import {bindActionCreators} from "redux"
 
 
 class WordTable extends Component {
@@ -12,7 +14,12 @@ class WordTable extends Component {
     }
 
     shouldComponentUpdate() {
-        return false
+        if (this.props.update.table) {
+            this.props.updateComments({'table': false});
+            return true
+        } else {
+            return this.props.post || ''
+        }
     }
 
     renderRows(row) {
@@ -70,8 +77,12 @@ class WordTable extends Component {
     }
 }
 
-function mapStateToProps({ post, comments }) {
-    return { post, comments };
+function mapStateToProps({ post, update }) {
+    return { post, update };
 }
 
-export default connect(mapStateToProps)(WordTable);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ updateComments }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WordTable);

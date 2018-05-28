@@ -1,11 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {updateComments} from "../actions"
+import {bindActionCreators} from "redux"
+
 import Chart from '../components/chart'
 
 
 class WordChart extends Component {
-    shouldComponentUpdate(prevProps, prevState) {
-        return prevProps.post !== this.props.post;
+    shouldComponentUpdate() {
+        if (this.props.update.chart) {
+            this.props.updateComments({'chart': false});
+            return true
+        } else {
+            return this.props.post || ''
+        }
     }
 
     render() {
@@ -41,8 +49,12 @@ class WordChart extends Component {
     }
 }
 
-function mapStateToProps({ post }) {
-    return { post };
+function mapStateToProps({ post, update }) {
+    return { post, update };
 }
 
-export default connect(mapStateToProps)(WordChart);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({updateComments}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WordChart);
