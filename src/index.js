@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
-import VideoList from './components/video_list'
-import VideoDetail from './components/video_detail'
+import Tree from 'react-d3-tree';
+
 import weights from './weights'
 
 // main HTML app container
@@ -10,17 +10,42 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        let myTreeData = [
+            {
+                name: 'Inception V3',
+                attributes: {},
+                children: [],
+            },
+        ];
+        let w = weights();
+        for (let node in w) {
+            //myTreeData[0].attributes[node] = node;
+            myTreeData[0].children.push({
+                name: node,
+                attributes: {}
+            });
+        }
+
         this.state = {
-            nodes: weights(),
+            nodes: myTreeData,
             selectedNode: null
         };
     }
 
 
     render() {
-        return (<div className="jumbotron">
-            <h1 className="title">Inception V3 Neural Net Graph Tree</h1>
-        </div>);
+        return (
+            <div>
+                <div className="jumbotron">
+                    <h1 className="title">Inception V3 NN Graph Tree</h1>
+                </div>
+                <div id="treeWrapper" style={{width: '500px', height: '500px'}}>
+
+                    <Tree data={this.state.nodes} zoom={4}/>
+
+                </div>
+            </div>
+        );
     }
 }
 
