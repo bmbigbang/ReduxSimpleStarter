@@ -1,10 +1,9 @@
-import _ from 'lodash'
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import App from './components/app';
+import App from './components/app'
 
-// main HTML app container
-class App2 extends Component {
+
+class Index extends Component {
     constructor(props) {
         super(props);
     }
@@ -22,4 +21,4 @@ class App2 extends Component {
 }
 
 // main HTML app container DOM renderer
-ReactDOM.render(<App2/>, document.querySelector('.container'));
+ReactDOM.render(<Index/>, document.querySelector('.container'));

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Tree from 'react-d3-tree'
+import Graph from './heat_map'
 
 import weights from '../weights'
+var w = weights();
 
 
 class App extends Component {
@@ -15,12 +17,10 @@ class App extends Component {
                 children: [],
             },
         ];
-        let w = weights();
+
         for (let node in w) {
-            //myTreeData[0].attributes[node] = node;
             myTreeData[0].children.push({
                 name: node,
-                attributes: {},
                 nodeSvgShape: {
                     shape: 'rect',
                     shapeProps: {
@@ -36,20 +36,25 @@ class App extends Component {
 
         this.state = {
             nodes: myTreeData,
-            selectedNode: null,
-            translate: {x:0, y:0}
+            selectedNode: null
         }
     };
 
 
     render() {
         return (
-            <div style={{width: '500px', height: '700px'}}>
-                <Tree
-                    data={this.state.nodes} zoom={1}
-                    translate={{x: 250, y: 350}}
-                />
-
+            <div >
+                <div className='graph-tree-component'
+                     style={{width: '600px', height: '700px'}}>
+                    <Tree
+                        data={this.state.nodes} zoom={1}
+                        translate={{x: 250, y: 350}}
+                        onClick={(nodeEvent) => {this.setState({
+                            selectedNode: w[nodeEvent.name]
+                        })}}
+                    />
+                </div>
+                <Graph selectedNode={this.state.selectedNode}/>
             </div>
         );
     }
