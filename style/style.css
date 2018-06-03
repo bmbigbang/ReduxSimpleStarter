@@ -1,9 +1,26 @@
 div.graph-tree-component {
-    float: top;
-    width: 500px;
-    height: 650px;
+    float: left;
+    width: 250px;
+    height: 500px;
 }
 
 div.heatmap-component {
-    float: bottom;
+    margin-right: 0;
+    float: right;
+}
+
+div.left-slider {
+    margin-left: 100px;
+    margin-top: 25px;
+    float: left;
+}
+
+div.right-slider {
+    margin-left: 50px;
+    margin-top: 25px;
+    float: left;
+}
+
+#title {
+    height: 150px;
 }

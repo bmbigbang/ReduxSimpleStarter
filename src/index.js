@@ -6,6 +6,7 @@ import ReduxPromise from 'redux-promise';
 
 import App from './components/app'
 import Graph from './components/heat_map'
+import SliderComp from './components/slider'
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
@@ -19,11 +20,12 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <div className="jumbotron">
-                    <h1 className="title">Inception V3 NN Graph Tree</h1>
+                <div id="title" className="jumbotron">
+                    <h2 className="title">Inception V3 NN Graph Tree</h2>
                 </div>
                 <div>
                     <App />
+                    <SliderComp />
                     <Graph />
                 </div>
             </div>

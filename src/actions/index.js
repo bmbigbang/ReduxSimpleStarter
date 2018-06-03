@@ -1,8 +1,8 @@
+import weights from '../weights'
+
 export const UPDATE_NODES = 'update_nodes';
 export const SELECT_NODE = 'select_node';
-export const UPDATE_GRAPH = 'update_graph';
-
-import weights from '../weights'
+export const UPDATE_SLIDER = 'update_slider';
 
 
 export function updateNodes() {
@@ -13,16 +13,17 @@ export function updateNodes() {
     };
 }
 
-export function selectNode(nodes, node) {
+export function selectNode(node) {
     return {
         type: SELECT_NODE,
-        payload: nodes[node].array
+        payload: node
     };
 }
 
-export function updateGraph(boolObj) {
+
+export function updateSlider(newState) {
     return {
-        type: UPDATE_GRAPH,
-        payload: boolObj
-    };
+        type: UPDATE_SLIDER,
+        payload: newState
+    }
 }

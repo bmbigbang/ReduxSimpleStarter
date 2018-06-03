@@ -4,7 +4,7 @@ import Tree from 'react-d3-tree'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { updateNodes, selectNode, updateGraph } from "../actions";
+import { updateNodes, selectNode, updateGraph, updateSlider } from "../actions";
 
 
 class App extends Component {
@@ -44,9 +44,14 @@ class App extends Component {
         return myTreeData;
     }
 
-    onClickUpdate(nodeData, evt) {
+    shouldComponentUpdate() {
+        return _.isEmpty(this.props.nodes)
+    }
+
+    onClickUpdate(nodeData, event) {
         if (nodeData.name in this.props.nodes) {
-            this.props.selectNode(this.props.nodes, nodeData.name);
+            this.props.selectNode(this.props.nodes[nodeData.name].array);
+            this.props.updateSlider({ max: this.props.nodes[nodeData.name].array.length - 1});
         }
     }
 
@@ -61,8 +66,8 @@ class App extends Component {
         return (
             <div className='graph-tree-component'>
                 <Tree
-                    data={myTreeData} zoom={1}
-                    translate={{x: 100, y: 350}}
+                    data={myTreeData} zoom={0.7}
+                    translate={{x: 50, y: 250}}
                     onClick={(nodeData, evt) => this.onClickUpdate(nodeData, evt)}
                 />
             </div>
@@ -76,7 +81,7 @@ function mapStateToProps({ nodes }) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        updateNodes, selectNode, updateGraph }, dispatch)
+        updateNodes, selectNode, updateGraph, updateSlider }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
