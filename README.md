@@ -1,14 +1,17 @@
-# ReduxSimpleStarter
+# Inception V3 Neural Network Graph Visualizer
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+The app will allow you to visualise the connections for each coordinate
+ of the 2d filter used for convolutions. See a demo here
+
+[heroku demo](https://morning-refuge-60885.herokuapp.com/)
+
+The data is extracted from a pre-trained model using tensorflow:
+
+[Model extraction](https://github.com/bmbigbang/neural-net-graph-tree)
 
 ### Getting Started
 
-There are two methods for getting started with this repo.
-
-#### Familiar with Git?
-Checkout this repo, install dependencies, then start the gulp process with the following:
-
+Checkout this repo, install dependencies, then start as below:
 ```
 > git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
 > cd ReduxSimpleStarter
@@ -16,10 +19,3 @@ Checkout this repo, install dependencies, then start the gulp process with the f
 > npm start
 ```
 
-#### Not Familiar with Git?
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
-
-```
-> npm install
-> npm start
-```
