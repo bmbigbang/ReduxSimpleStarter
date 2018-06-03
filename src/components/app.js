@@ -59,11 +59,10 @@ class App extends Component {
         let myTreeData = this.processTreeData(this.props.nodes);
 
         return (
-            <div className='graph-tree-component'
-                 style={{width: '600px', height: '700px'}}>
+            <div className='graph-tree-component'>
                 <Tree
                     data={myTreeData} zoom={1}
-                    translate={{x: 250, y: 350}}
+                    translate={{x: 100, y: 350}}
                     onClick={(nodeData, evt) => this.onClickUpdate(nodeData, evt)}
                 />
             </div>

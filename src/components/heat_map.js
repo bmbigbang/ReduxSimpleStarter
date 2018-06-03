@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import HeatMap from 'react-heatmap-grid'
+import HeatMap from 'react-plotly.js'
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -28,15 +28,11 @@ class Graph extends Component {
             return <div>Select a node</div>
         }
 
-        let x = this.props.selectedNode.x;
-        let y = this.props.selectedNode.y;
-        let d = this.props.selectedNode.data;
+        let d = [{'z': this.props.selectedNode.data, 'type': 'heatmap'}];
 
         return (
             <div className='heatmap-component'>
                 <HeatMap
-                    xLabels={x}
-                    yLabels={y}
                     data={d}/>
             </div>
         )

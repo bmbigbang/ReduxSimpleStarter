@@ -27,11 +27,13 @@
   "dependencies": {
     "babel-preset-stage-1": "^6.1.18",
     "lodash": "^3.10.1",
-    "react": "16.3.2",
+    "plotly.js": "^1.38.1",
+    "react": "^16.3.2",
     "react-d3-tree": "^1.10.6",
-    "react-dom": "16.3.2",
-    "react-heatmap-grid": "^0.2.2",
+    "react-dom": "^16.3.2",
+    "react-plotly.js": "^2.2.0",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-promise": "^0.5.3"
   }
 }

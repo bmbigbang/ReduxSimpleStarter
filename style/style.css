@@ -1,5 +1,7 @@
 div.graph-tree-component {
     float: top;
+    width: 500px;
+    height: 650px;
 }
 
 div.heatmap-component {
