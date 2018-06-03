@@ -1,15 +1,22 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import Tree from 'react-d3-tree'
-import Graph from './heat_map'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import weights from '../weights'
-var w = weights();
+import { updateNodes, selectNode, updateGraph } from "../actions";
 
 
 class App extends Component {
     constructor(props) {
         super(props);
 
+        this.props.updateNodes();
+
+        this.onClickUpdate = this.onClickUpdate.bind(this);
+    };
+
+    processTreeData(weights) {
         let myTreeData = [
             {
                 name: 'Inception V3',
@@ -18,7 +25,7 @@ class App extends Component {
             },
         ];
 
-        for (let node in w) {
+        for (let node in weights) {
             myTreeData[0].children.push({
                 name: node,
                 nodeSvgShape: {
@@ -34,30 +41,43 @@ class App extends Component {
             });
         }
 
-        this.state = {
-            nodes: myTreeData,
-            selectedNode: null
-        }
-    };
+        return myTreeData;
+    }
 
+    onClickUpdate(nodeData, evt) {
+        if (nodeData.name in this.props.nodes) {
+            this.props.selectNode(this.props.nodes, nodeData.name);
+        }
+    }
 
     render() {
+
+        if (_.isEmpty(this.props.nodes)) {
+            return <div>Loading weights...</div>
+        }
+
+        let myTreeData = this.processTreeData(this.props.nodes);
+
         return (
-            <div >
-                <div className='graph-tree-component'
-                     style={{width: '600px', height: '700px'}}>
-                    <Tree
-                        data={this.state.nodes} zoom={1}
-                        translate={{x: 250, y: 350}}
-                        onClick={(nodeEvent) => {this.setState({
-                            selectedNode: w[nodeEvent.name]
-                        })}}
-                    />
-                </div>
-                <Graph selectedNode={this.state.selectedNode}/>
+            <div className='graph-tree-component'
+                 style={{width: '600px', height: '700px'}}>
+                <Tree
+                    data={myTreeData} zoom={1}
+                    translate={{x: 250, y: 350}}
+                    onClick={(nodeData, evt) => this.onClickUpdate(nodeData, evt)}
+                />
             </div>
         );
     }
 }
 
-export default App;
+function mapStateToProps({ nodes }) {
+    return { nodes };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        updateNodes, selectNode, updateGraph }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -1,25 +1,55 @@
-import React from 'react'
+import _ from 'lodash'
+import React, { Component } from 'react'
 import HeatMap from 'react-heatmap-grid'
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { updateGraph } from "../actions";
 
 
-const Graph = ({ selectedNode }) => {
+class Graph extends Component {
 
-    if (!selectedNode) {
-        return null
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.updating)
+            if (_.isNull(nextProps.selectedNode)) {
+                return false
+            } else if (_.isEmpty(nextProps.selectedNode)) {
+                return false
+            } else if ((nextProps.selectedNode.data !== this.props.selectedNode.data)) {
+                this.props.updateGraph({'graph': false});
+                return true
+            } else {
+                return false
+            }
     }
-    let arrSubset = selectedNode['array'][0][0];
-    let x = new Array(arrSubset.length).fill(0).map((_, i) => `${i}`);
-    let y = new Array(arrSubset[0].length).fill(0).map((_, i) => `${i}`);
 
-    return (
-        <div className='heatmap-component'>
-            <HeatMap
-                xLabels={x}
-                yLabels={y}
-                data={arrSubset}/>
-        </div>
-    )
-};
+    render() {
+        if (_.isNull(this.props.selectedNode) || _.isEmpty(this.props.selectedNode)) {
+            return <div>Select a node</div>
+        }
 
+        let x = this.props.selectedNode.x;
+        let y = this.props.selectedNode.y;
+        let d = this.props.selectedNode.data;
 
-export default Graph;
+        return (
+            <div className='heatmap-component'>
+                <HeatMap
+                    xLabels={x}
+                    yLabels={y}
+                    data={d}/>
+            </div>
+        )
+    }
+}
+
+function mapStateToProps({ selectedNode, updating }) {
+    return { selectedNode, updating };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        updateGraph }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Graph)
