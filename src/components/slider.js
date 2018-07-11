@@ -7,7 +7,7 @@ import { updateSlider } from "../actions"
 
 class SliderComp extends Component {
     constructor(props) {
-         super(props);
+        super(props);
 
         this.updateSel1 = this.updateSel1.bind(this);
         this.updateSel2 = this.updateSel2.bind(this);
