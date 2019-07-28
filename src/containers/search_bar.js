@@ -31,8 +31,10 @@ class SearchBar extends Component {
         if (this.props.comments !== prevProps.comments) {
             this.props.userComments(prevProps.comments, this.props.comments);
 
-            setTimeout(() => {}, 200);
-            this.props.updateComments({'table': true, 'chart': true});
+            setTimeout(() => {
+                this.props.updateComments({'table': true, 'chart': true});
+            }, 200);
+
         }
     }
 
@@ -41,7 +43,7 @@ class SearchBar extends Component {
         return (
             <form onSubmit={this.onFormSubmit} className="input-group">
                 <input
-                    placeholder="Search a name to get posts"
+                    placeholder="Search a user name to get their posts"
                     className="form-control"
                     value={this.state.term}
                     onChange={this.onInputChange}/>

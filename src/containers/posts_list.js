@@ -13,6 +13,7 @@ class PostsList extends Component {
 
     componentDidMount() {
         this.props.fetchPosts(this.props.users || 0);
+        setTimeout(() => {this.props.selectPost(-1)}, 500)
     }
 
     componentDidUpdate(prevProps, prevState) {

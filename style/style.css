@@ -32,6 +32,7 @@ td.posts-header {
     margin: 0 0;
     height: 500px;
     width: 50%;
+    cursor: pointer;
 }
 
 #right-container {

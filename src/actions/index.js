@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {polyfill} from 'es6-promise';
 
 const ROOT_URL = 'https://jsonplaceholder.typicode.com/';
 
@@ -9,6 +10,9 @@ export const USER_COMMENTS = 'user_comments';
 export const POST_COMMENTS = 'post_comments';
 export const CLEAR_COMMENTS = 'clear_comments';
 export const UPDATE_COMMENTS = 'update_comments';
+
+polyfill();
+
 
 export function fetchUsers(fullName) {
     if (fullName === '') {
@@ -54,13 +58,16 @@ export function fetchPosts(userId) {
 }
 
 export function selectPost(post) {
-    let url = `${ROOT_URL}posts/${post}/comments`;
-    let request = axios.get(url);
-
-    return {
-        type: POST_SELECTED,
-        payload: request
+    return dispatch => {
+        let url = `${ROOT_URL}posts/${post}/comments`;
+        axios.get(url).then(response => {
+            dispatch({
+                type: POST_SELECTED,
+                payload: {postId: post, response: response.data}
+            });
+        });
     };
+
 }
 
 export function userComments(prevWords, words) {

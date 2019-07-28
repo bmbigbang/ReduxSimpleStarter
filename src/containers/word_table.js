@@ -32,28 +32,21 @@ class WordTable extends Component {
     }
 
     renderTable() {
-        let sortable = [];
-        let total = 0;
-        for (let word in this.props.post) {
-            sortable.push([word, this.props.post[word]]);
-            total += this.props.post[word];
-        }
-
-        if (total === 0) {return null}
-
-        sortable.sort(function(a, b) {
-            return b[1] - a[1]
-        });
-
         let data = [];
-        let count = 1;
-        for (let item of sortable) {
-            data.push({'id': count, 'word': item[0],
-                       'count': Number((item[1] * 100 / total).toFixed(1))});
-            count += 1;
+        if (this.props.post && this.props.post.hasOwnProperty("postId")) {
+            let count = 1;
+            for (let item of this.props.post.data) {
+                data.push({'id': count, 'word': item[0],
+                    'count': Number((item[1] * 100 / this.props.post.total).toFixed(1))});
+                count += 1;
+            }
+        } else {
+            return <tr key={ 0 }>
+                <td className='word-table-rows'> </td>
+                <td className='word-table-rows'> </td>
+            </tr>
         }
 
-        data = data.slice(0, 10);
         return data.map(this.renderRows)
     }
 
